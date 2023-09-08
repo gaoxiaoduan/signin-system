@@ -1,0 +1,20 @@
+# 日志
+logs
+*.log
+
+# 编译后的文件
+dist
+
+# 依赖
+node_modules/
+
+# 环境变量文件
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+
+# 编辑器配置
+.idea
+.vscode
