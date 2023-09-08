@@ -1,5 +1,10 @@
-const main = () => {
-    console.log("Hello World");
-};
+import { TaskScheduler } from "./TaskScheduler";
+import { run as aliyundriveRun } from "./aliyundrive";
+import { run as imaotaiRun } from "./imaotai";
 
-main();
+const taskScheduler = new TaskScheduler();
+
+taskScheduler.scheduleTask(aliyundriveRun);
+taskScheduler.scheduleTask(imaotaiRun);
+
+taskScheduler.start();
