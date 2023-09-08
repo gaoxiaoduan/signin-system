@@ -1,5 +1,6 @@
 import schedule from "node-schedule";
 import logger from "@/utils/logger";
+import { getCurrentTime } from "@/utils";
 
 type taskFn = () => Promise<void | boolean>
 type scheduleRuleType =
@@ -34,8 +35,9 @@ export class TaskScheduler {
 
     // 添加任务
     scheduleTask(task: taskFn, scheduleRule: scheduleRuleType = this.getCurrentTimeRule()) {
+        let index = this.jobs?.length;
         const job = schedule.scheduleJob(scheduleRule, async () => {
-            await this.executeTask(task);
+            await this.executeTask(task, index);
         });
 
         this.jobs?.push(job);
@@ -43,12 +45,14 @@ export class TaskScheduler {
 
 
     // 执行任务
-    private async executeTask(task: taskFn) {
+    private async executeTask(task: taskFn, index: number = 0) {
+        logger.warn(`---任务${index}开始执行: ${getCurrentTime()}---\n`);
         try {
             await task();
         } catch (e) {
             logger.error("Task execution failed:", e);
         }
+        logger.warn(`---任务${index}执行结束: ${getCurrentTime()}---\n`);
     }
 
     // 开始所有任务
