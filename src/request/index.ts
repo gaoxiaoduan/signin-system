@@ -1,3 +1,5 @@
+import fetch, { RequestInit } from "node-fetch";
+
 export const request = (url: string, options?: RequestInit): Promise<any> => {
     return new Promise((resolve, reject) => {
         fetch(url, options)
