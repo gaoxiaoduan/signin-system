@@ -37,7 +37,7 @@ export class TaskScheduler {
 
     // 执行任务
     private async executeTask(task: taskFn, index: number = 0) {
-        logger.warn(`---任务${index}开始执行: ${getCurrentTime()}---\n`);
+        logger.warn(`---任务${index}开始执行: ${getCurrentTime()}---`);
         try {
             await task();
         } catch (e) {

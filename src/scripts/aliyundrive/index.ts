@@ -1,5 +1,5 @@
 import logger from "@/utils/logger";
-import { signInList, updateToken } from "@/aliyundrive/api";
+import { signInList, updateToken } from "@/scripts/aliyundrive/api";
 
 export const run = async () => {
     logger.info("开始执行阿里云盘任务");

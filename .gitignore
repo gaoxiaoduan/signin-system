@@ -18,3 +18,10 @@ node_modules/
 # 编辑器配置
 .idea
 .vscode
+
+# cookie文件
+cookies/**
+!cookies/.gitkeep
+
+# puppeteer用户文件
+puppeteer
