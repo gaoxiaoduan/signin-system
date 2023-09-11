@@ -6,7 +6,7 @@
   "main": "./dist/main.js",
   "module": "./dist/main.js",
   "scripts": {
-    "dev": "pnpm run build && node --env-file=.env ./dist/main.js",
+    "dev": "pnpm run build && node ./dist/main.js",
     "build": "rollup -c --configPlugin @rollup/plugin-typescript"
   },
   "keywords": [
@@ -16,6 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "chalk": "^5.3.0",
+    "dotenv": "^16.3.1",
     "node-schedule": "^2.1.1",
     "typescript": "^5.2.2"
   },

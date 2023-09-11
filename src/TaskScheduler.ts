@@ -24,17 +24,8 @@ export class TaskScheduler {
         return instance;
     }
 
-    getCurrentTimeRule() {
-        const date = new Date();
-        const seconds = date.getSeconds();
-        const minutes = date.getMinutes();
-        const hours = date.getHours();
-        // 每天的几点几分几秒执行
-        return `${seconds} ${minutes} ${hours} * * *`;
-    }
-
     // 添加任务
-    scheduleTask(task: taskFn, scheduleRule: scheduleRuleType = this.getCurrentTimeRule()) {
+    scheduleTask(task: taskFn, scheduleRule: scheduleRuleType = new Date(Date.now() + 1000)) {
         let index = this.jobs?.length;
         const job = schedule.scheduleJob(scheduleRule, async () => {
             await this.executeTask(task, index);

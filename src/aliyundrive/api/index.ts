@@ -41,7 +41,7 @@ export const signInList = async (access_token: string, nick_name: string) => {
             "Content-Type": "application/json"
         }
     });
-    console.log(res);
+
     if (!res.success) {
         logger.error("签到失败：", res.message);
         return false;
