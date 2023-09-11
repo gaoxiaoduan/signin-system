@@ -10,5 +10,5 @@ const tasks: IRunPuppeteerTasks[] = [
 ];
 
 export const run = async () => {
-    await runPuppeteer(tasks, false);
+    await runPuppeteer(tasks);
 };
