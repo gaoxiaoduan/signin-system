@@ -49,7 +49,7 @@ export const singIn = async (page: Page) => {
 
     // 点击免费抽奖按钮
     await page.click(".text.text-free");
-    await dealy(1000 * 5);
+    await dealy(1000 * 10);
     const lottery = await page.waitForSelector(".wrapper > .title");
     const lotteryText = await lottery?.evaluate(node => node.textContent);
     if (!lotteryText) return logger.error("签到失败，未获取到抽奖信息");
