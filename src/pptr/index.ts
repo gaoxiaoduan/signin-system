@@ -13,7 +13,7 @@ export const runPuppeteer = async (tasks: IRunPuppeteerTasks[], isClose: boolean
     const browser = await puppeteer.launch({
         // 默认是true，无头模式，未来 true=“new”
         // "new" ｜ false（关闭）
-        headless: isDev ? false : "new",
+        headless: !isDev,
         args: ["--no-sandbox"],
         userDataDir: puppeteerUserDataDir,
     });
