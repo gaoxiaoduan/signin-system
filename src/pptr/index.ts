@@ -1,6 +1,6 @@
 import puppeteer, { Page } from "puppeteer";
 import logger from "@/utils/logger";
-import { puppeteerUserDataDir, USER_AGENT } from "@/config";
+import { isDev, puppeteerUserDataDir, USER_AGENT } from "@/config";
 
 export interface IRunPuppeteerTasks {
     taskName: string; // 任务名
@@ -11,7 +11,9 @@ export interface IRunPuppeteerTasks {
 export const runPuppeteer = async (tasks: IRunPuppeteerTasks[], isClose: boolean = true) => {
     logger.info("启动puppeteer...");
     const browser = await puppeteer.launch({
-        headless: false,
+        // 默认是true，无头模式，未来 true=“new”
+        // "new" ｜ false（关闭）
+        headless: isDev ? false : "new",
         args: ["--no-sandbox"],
         userDataDir: puppeteerUserDataDir,
     });

@@ -1,7 +1,7 @@
 import logger from "@/utils/logger";
 import { signInList, updateToken } from "@/scripts/aliyundrive/api";
 
-export const run = async () => {
+export const aliyundriveRun = async () => {
     logger.info("开始执行阿里云盘任务");
     if (!process.env.refreshToken) {
         logger.warn("没有配置refreshToken，无法执行阿里云盘任务");

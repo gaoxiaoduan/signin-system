@@ -6,7 +6,8 @@
   "main": "./dist/main.js",
   "module": "./dist/main.js",
   "scripts": {
-    "dev": "pnpm run build && node ./dist/main.js",
+    "dev": "pnpm run build && NODE_ENV=development node ./dist/main.js",
+    "start": "pnpm run build && NODE_ENV=production node ./dist/main.js",
     "build": "rollup -c --configPlugin @rollup/plugin-typescript"
   },
   "keywords": [

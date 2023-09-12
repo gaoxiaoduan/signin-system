@@ -1,6 +1,9 @@
 {
   "name": "singin-system",
   "script": "dist/main.js",
+  "env": {
+    "NODE_ENV": "production"
+  },
   "instances": 1,
   "log_rotate_interval": "1d",
   "log_max_size": "10M",

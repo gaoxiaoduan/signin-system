@@ -9,6 +9,6 @@ const tasks: IRunPuppeteerTasks[] = [
     },
 ];
 
-export const run = async () => {
+export const juejinRun = async () => {
     await runPuppeteer(tasks);
 };

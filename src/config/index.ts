@@ -1,5 +1,7 @@
 import path from "path";
 
+export const isDev = process.env.NODE_ENV === "development"; // 区分开发环境
+
 // puppeteer用户数据目录
 export const puppeteerUserDataDir = "puppeteer/user/data";
 
