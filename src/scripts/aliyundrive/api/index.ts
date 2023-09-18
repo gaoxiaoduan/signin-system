@@ -63,10 +63,10 @@ export const signInList = async (access_token: string, nick_name: string) => {
         for await (const reward of rewards) {
             const signInDay = reward.day;
             const rewardInfo = await getReward(access_token, signInDay);
+            console.log("rewardInfo", rewardInfo);
             logger.info(`第${signInDay}天奖励领取成功: 获得${rewardInfo.name || ""}${
                 rewardInfo.description || ""
             }`);
-
         }
     } else if (currentSignInfo.isReward) {
         logger.info(`今日签到获得${currentSignInfo.reward.name || ""}${
@@ -77,7 +77,7 @@ export const signInList = async (access_token: string, nick_name: string) => {
 
 // 获取奖励
 const getReward = async (access_token: string, signInDay: number) => {
-    return await postRequest(rewardURL, {
+    const res = await postRequest(rewardURL, {
         signInDay
     }, {
         headers: {
@@ -85,4 +85,5 @@ const getReward = async (access_token: string, signInDay: number) => {
             "Content-Type": "application/json"
         }
     });
+    return res.result;
 };

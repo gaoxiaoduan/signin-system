@@ -15,6 +15,7 @@ export const runPuppeteer = async (tasks: IRunPuppeteerTasks[], isClose: boolean
         // "new" ｜ false（关闭）
         headless: !isDev,
         args: ["--no-sandbox"],
+        timeout: 0,
         userDataDir: puppeteerUserDataDir,
     });
     const page = await browser.newPage();
