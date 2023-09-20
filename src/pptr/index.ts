@@ -14,7 +14,7 @@ export const runPuppeteer = async (tasks: IRunPuppeteerTasks[], isClose: boolean
         // 默认是true，无头模式，未来 true=“new”
         // "new" ｜ false（关闭）
         headless: !isDev,
-        args: ["--no-sandbox"],
+        args: ["--no-sandbox", "--disable-setuid-sandbox"],
         timeout: 0,
         userDataDir: puppeteerUserDataDir,
     });

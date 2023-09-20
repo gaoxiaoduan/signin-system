@@ -63,10 +63,7 @@ export const signInList = async (access_token: string, nick_name: string) => {
         for await (const reward of rewards) {
             const signInDay = reward.day;
             const rewardInfo = await getReward(access_token, signInDay);
-            console.log("rewardInfo", rewardInfo);
-            logger.info(`第${signInDay}天奖励领取成功: 获得${rewardInfo.name || ""}${
-                rewardInfo.description || ""
-            }`);
+            logger.info(`第${signInDay}天奖励领取成功: 获得${rewardInfo.notice || ""}`);
         }
     } else if (currentSignInfo.isReward) {
         logger.info(`今日签到获得${currentSignInfo.reward.name || ""}${
