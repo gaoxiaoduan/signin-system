@@ -32,6 +32,7 @@ export const singIn = async (page: Page) => {
     await singBtn?.click();
     await page.waitForNavigation();
     // 签到按钮
+    await page.hover("div.code-calender");
     await page.click("div.code-calender");
 
     await dealy(1000 * 5);

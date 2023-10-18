@@ -18,6 +18,8 @@ export const runPuppeteer = async (tasks: IRunPuppeteerTasks[], isClose: boolean
         timeout: 0,
         userDataDir: puppeteerUserDataDir,
     });
+    logger.info("Browser version:", await browser.version());
+
     const page = await browser.newPage();
     await page.setViewport({
         width: 1200,
