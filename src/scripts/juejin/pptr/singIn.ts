@@ -30,10 +30,9 @@ export const singIn = async (page: Page) => {
     }
 
     await singBtn?.click();
-
+    await page.waitForNavigation();
     // 签到按钮
-    const signInBtn = await page.waitForSelector(".signin.btn");
-    await signInBtn?.click();
+    await page.click("div.code-calender");
 
     await dealy(1000 * 5);
     // 获取的矿石奖励
