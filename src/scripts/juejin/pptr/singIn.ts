@@ -16,50 +16,50 @@ export const singIn = async (page: Page) => {
         logger.info("掘金cookie设置成功");
     }
 
-    await page.goto("https://juejin.cn");
+    await page.goto("https://juejin.cn/user/center/signin", {
+        waitUntil: ["load", "domcontentloaded", "networkidle0"]
+    });
 
-    const loginMenu = await page.waitForSelector("li.nav-item.menu");
-    if (!loginMenu) {
-        return logger.warn("登录失败");
-    }
-    await dealy(1000 * 5);
-    const singBtn = await page.waitForSelector("span.btn-text");
+    const singBtn = await page.waitForSelector("div.code-calender");
     const singBtnText = await singBtn?.evaluate(node => node.textContent);
-    if (singBtnText === "已签到") {
+    if (singBtnText?.includes("已签到")) {
         return logger.warn("掘金今日已签到，无需重复签到");
     }
 
+    // 点击签到
+    await singBtn?.hover();
     await singBtn?.click();
-    await page.waitForNavigation();
-    // 签到按钮
-    await page.hover("div.code-calender");
-    await page.click("div.code-calender");
 
     await dealy(1000 * 5);
     // 获取的矿石奖励
     const reward = await page.waitForSelector(".figure-text");
     const rewardText = await reward?.evaluate(node => node.textContent);
-    if (!rewardText) return logger.error("签到失败，未获取到矿石奖励信息");
+    if (!parseInt(rewardText!)) return logger.error("签到失败，未获取到矿石奖励信息");
     logger.info(`掘金签到成功，获得矿石：${rewardText}`);
 
     await dealy(1000 * 5);
-    // 点击去抽奖按钮
-    await page.click(".btn-area > .btn");
-    await dealy(1000 * 10);
+    // 点击去抽奖按钮,进入抽奖界面
+    const goLotteryBtn = await page.waitForSelector(".btn-area > .btn");
+    await goLotteryBtn?.click();
 
+    await dealy(1000 * 5);
     // 点击免费抽奖按钮
-    await page.click(".text.text-free");
-    await dealy(1000 * 10);
+    const freeBtn = await page.waitForSelector(".text.text-free");
+    await freeBtn?.click();
+
+    await dealy(1000 * 5);
     const lottery = await page.waitForSelector(".wrapper > .title");
     const lotteryText = await lottery?.evaluate(node => node.textContent);
     if (!lotteryText) return logger.error("签到失败，未获取到抽奖信息");
     logger.info(`免费抽奖成功：${lotteryText}`);
 
     // 关闭抽奖弹窗
-    await page.click(".wrapper > .submit");
+    const closeBtn = await page.waitForSelector(".wrapper > .submit");
+    await closeBtn?.click();
 
     // 点击沾喜气
-    await page.click("#stick-txt-1");
+    const stickBtn = await page.waitForSelector("#stick-txt-1");
+    await stickBtn?.click();
     await dealy(1000 * 5);
 
     const grandValue = await page.waitForSelector(".grand-val");
