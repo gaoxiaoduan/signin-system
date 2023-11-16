@@ -16,8 +16,18 @@ export const singIn = async (page: Page) => {
         logger.info("掘金cookie设置成功");
     }
 
+    // 拦截不需要的请求
+    await page.setRequestInterception(true);
+    page.on("request", request => {
+        if (["image", "font"].includes(request.resourceType())) {
+            return request.abort();
+        }
+        return request.continue();
+    });
+
     await page.goto("https://juejin.cn/user/center/signin", {
-        waitUntil: ["load", "domcontentloaded", "networkidle0"]
+        waitUntil: ["domcontentloaded", "networkidle0"],
+        timeout: 0
     });
 
     const singBtn = await page.waitForSelector("div.code-calender");

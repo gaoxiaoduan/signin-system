@@ -14,7 +14,12 @@ export const runPuppeteer = async (tasks: IRunPuppeteerTasks[], isClose: boolean
         // 默认是true，无头模式，未来 true=“new”
         // "new" ｜ false（关闭）
         headless: !isDev,
-        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+        args: [
+            "--no-sandbox",// 沙盒模式
+            "--disable-setuid-sandbox", // uid沙盒
+            "--disable-dev-shm-usage", // 限制/dev/shm使用
+            "--single-process" // 单进程
+        ],
         timeout: 0,
         userDataDir: puppeteerUserDataDir,
     });
