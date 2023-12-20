@@ -14,6 +14,6 @@ export const singIn = async (cookie: string) => {
             "Referer": "https://www.koudaizy.com/user/",
             "Referrer-Policy": "strict-origin-when-cross-origin"
         },
-        body: "action=user_qiandao&nonce=a013bb76a1",
+        body: "action=user_qiandao",
     });
 };

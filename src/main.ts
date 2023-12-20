@@ -9,8 +9,8 @@ logger.info("🚀签到系统启动,等待任务执行");
 
 const taskScheduler = new TaskScheduler();
 
-// 每天7:00,7:30执行 -> "0 7,7:30 * * *"
-taskScheduler.scheduleTask(koudaiRun, "0 7,7:30 * * *");
+// 每天1:00,2:00执行 -> "0 1,2 * * *"
+taskScheduler.scheduleTask(koudaiRun, "0 1,2 * * *");
 
 // 每天8:00,9:00执行 -> "0 8,9 * * *"
 taskScheduler.scheduleTask(juejinRun, "0 8,9 * * *");
