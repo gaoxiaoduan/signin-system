@@ -4,6 +4,9 @@ import { COOKIE_PATH } from "@/config";
 import logger from "@/utils/logger";
 import { dealy } from "@/utils";
 
+// 间隔时间
+const DELAY_TIME = 1000 * 10;
+
 export const singIn = async (page: Page) => {
     if (!fs.existsSync(COOKIE_PATH.juejin)) {
         return logger.warn("掘金cookie文件不存在，请检查后再尝试");
@@ -40,24 +43,24 @@ export const singIn = async (page: Page) => {
     await singBtn?.hover();
     await singBtn?.click();
 
-    await dealy(1000 * 5);
+    await dealy(DELAY_TIME);
     // 获取的矿石奖励
     const reward = await page.waitForSelector(".figure-text");
     const rewardText = await reward?.evaluate(node => node.textContent);
     if (!parseInt(rewardText!)) return logger.error("签到失败，未获取到矿石奖励信息");
     logger.info(`掘金签到成功，获得矿石：${rewardText}`);
 
-    await dealy(1000 * 5);
+    await dealy(DELAY_TIME);
     // 点击去抽奖按钮,进入抽奖界面
-    const goLotteryBtn = await page.waitForSelector(".btn-area > .btn");
+    const goLotteryBtn = await page.waitForSelector("div.byte-modal__body div.btn-area > button");
     await goLotteryBtn?.click();
 
-    await dealy(1000 * 5);
+    await dealy(DELAY_TIME);
     // 点击免费抽奖按钮
     const freeBtn = await page.waitForSelector(".text.text-free");
     await freeBtn?.click();
 
-    await dealy(1000 * 5);
+    await dealy(DELAY_TIME);
     const lottery = await page.waitForSelector(".wrapper > .title");
     const lotteryText = await lottery?.evaluate(node => node.textContent);
     if (!lotteryText) return logger.error("签到失败，未获取到抽奖信息");
