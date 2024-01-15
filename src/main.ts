@@ -7,7 +7,7 @@ import { koudaiRun } from "@/scripts/koudai";
 
 logger.info("🚀签到系统启动,等待任务执行");
 
-const taskScheduler = new TaskScheduler();
+const taskScheduler = TaskScheduler.getInstance();
 
 // 每天1:00,2:00执行 -> "0 1,2 * * *"
 taskScheduler.scheduleTask(aliyundriveRun, "0 1,2 * * *");

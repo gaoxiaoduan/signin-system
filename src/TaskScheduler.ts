@@ -11,27 +11,37 @@ type scheduleRuleType =
     | schedule.RecurrenceSpecObjLit
     | Date
 
-let instance: TaskScheduler | null = null;
-
+/**
+ * 任务调度器
+ * 用于定时执行任务
+ */
 export class TaskScheduler {
-    private jobs: schedule.Job[] | undefined;
+    private static instance: TaskScheduler = new TaskScheduler();
+    private jobs: schedule.Job[] = [];
 
     constructor() {
-        if (!instance) {
-            instance = this;
-            this.jobs = [];
-        }
-        return instance;
+    }
+
+    public static getInstance(): TaskScheduler {
+        return this.instance;
     }
 
     // 添加任务
-    scheduleTask(task: taskFn, scheduleRule: scheduleRuleType = new Date(Date.now() + 1000)) {
-        let index = this.jobs?.length;
+    scheduleTask(task: taskFn, scheduleRule: scheduleRuleType | null = null) {
+        // 默认延迟1秒执行
+        if (scheduleRule === null) {
+            scheduleRule = new Date(Date.now() + 1000);
+        }
+
         const job = schedule.scheduleJob(scheduleRule, async () => {
-            await this.executeTask(task, index);
+            await this.executeTask(task, this.jobs.length);
         });
 
-        this.jobs?.push(job);
+        if (!job) {
+            throw new Error("Failed to create schedule job");
+        }
+
+        this.jobs.push(job);
     }
 
 
